@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible"
+        content="IE=edge">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+  <title>Vue3 Syntax Testing</title>
+  <!-- <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> -->
+</head>
+
+<body>
+  <div id="app">
+    <h2>
+      {{ message }}
+    </h2>
+    <p ref="msg"></p>
+    <button type="button"
+            @click="changeMsg">
+      Click to change message.
+    </button>
+  </div>
+</body>
+
+<script type="module">
+  import { createApp, ref } from './javascript/vue@3.3.4.esm-browser.js';
+  //console.log('createApp:', createApp);
+  //console.log('ref:', ref);
+  // 掛載到實例上
+  createApp({
+    setup() {
+      const message = ref('Hello Vue!');
+      const msg = ref(null);
+      const changeMsg = () => {
+        // console.log('registered.');
+        console.log('msg:', msg, 'typeof msg:', typeof msg);
+        console.log('msg value:', msg.value);
+
+        // setting the style of DOM
+        msg.value.style.backgroundColor = 'maroon';
+        msg.value.style.color = '#ffffff';
+
+        if (!msg.value.textContent) {
+          msg.value.textContent = 'Hello Vue3!'
+        } else {
+          msg.value.textContent = '';
+        }
+      }
+
+      // function changeMsg() {
+      //   console.log('registered.');
+      // }
+      return {
+        message,
+        msg,
+        changeMsg
+      }
+    }
+
+    // Option API
+    // data() {
+    //   return {
+    //     message: 'Hello Vue!'
+    //   }
+    // }
+  }).mount('#app');
+</script>
+<script>
+  // const { createApp, ref } = Vue
+
+  // createApp({
+  //   setup() {
+  //     const message = ref('Hello vue!')
+  //     return {
+  //       message
+  //     }
+  //   }
+  // }).mount('#app')
+
+</script>
+
+</html>
