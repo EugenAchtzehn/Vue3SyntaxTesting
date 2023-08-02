@@ -8,24 +8,40 @@
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0">
   <title>Vue3 Syntax Testing</title>
+  <!-- <link rel="stylesheet"
+        href="./css/reset.css"> -->
   <!-- <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> -->
 </head>
 
 <body>
-  <div id="app">
-    <h2>
-      {{ message }}
-    </h2>
-    <p ref="msg"></p>
-    <button type="button"
-            @click="changeMsg">
-      Click to change message.
-    </button>
+  <div id="app"
+       class="application">
+    <section class="composition_section">
+      <h2>
+        Composition API
+      </h2>
+      <h3>
+        {{ message }}
+      </h3>
+      <p ref="msg"></p>
+      <button type="button"
+              @click="changeMsg">
+        Click to toggle msg.
+      </button>
+    </section>
+    <section class="option_section">
+      <h2>Option API</h2>
+      <p ref="optionRef"></p>
+      <button type="button"
+              @click="toggleOptionRef">
+        Click to call optionRef.
+      </button>
+    </section>
   </div>
 </body>
 
 <script type="module">
-  import { createApp, ref } from './javascript/vue@3.3.4.esm-browser.js';
+  import { createApp, ref } from './js/vue@3.3.4.esm-browser.js';
   //console.log('createApp:', createApp);
   //console.log('ref:', ref);
   // 掛載到實例上
@@ -39,13 +55,13 @@
         console.log('msg value:', msg.value);
 
         // setting the style of DOM
-        msg.value.style.backgroundColor = 'maroon';
-        msg.value.style.color = '#ffffff';
+        // msg.value.style.backgroundColor = '#96514d';
+        // msg.value.style.color = '#ffffff';
 
         if (!msg.value.textContent) {
-          msg.value.textContent = 'Hello Vue3!'
+          msg.value.textContent = `Hello Composition's Ref.`
         } else {
-          msg.value.textContent = '';
+          msg.value.textContent = ``;
         }
       }
 
@@ -57,28 +73,58 @@
         msg,
         changeMsg
       }
-    }
+    },
 
     // Option API
-    // data() {
-    //   return {
-    //     message: 'Hello Vue!'
-    //   }
-    // }
+    data() {
+      return {
+        msgOptionApi: 'Hello Option API!'
+      }
+    },
+    methods: {
+      toggleOptionRef() {
+        //console.log('click event triggered in option API');
+        const vm = this;
+        console.log('vm.$refs:', vm.$refs);
+        console.log('vm.$refs.optionRef:', vm.$refs.optionRef);
+        if (!vm.$refs.optionRef.textContent) {
+          vm.$refs.optionRef.textContent = `Hello Option's Ref.`;
+        } else {
+          vm.$refs.optionRef.textContent = ``;
+        }
+      }
+    }
   }).mount('#app');
 </script>
-<script>
-  // const { createApp, ref } = Vue
 
-  // createApp({
-  //   setup() {
-  //     const message = ref('Hello vue!')
-  //     return {
-  //       message
-  //     }
-  //   }
-  // }).mount('#app')
+<style>
+  *,
+  *::before,
+  *::after {
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+  }
 
-</script>
+  .composition_section,
+  .option_section {
+    background-color: #007b43;
+    border: 2px solid #e6e6e6;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .composition_section h2 {
+    color: #eb6101;
+  }
+
+  .option_section h2 {
+    color: #e6b422;
+  }
+
+  /* .application {
+    min-height: 100vh;
+    background-color: azure;
+  } */
+</style>
 
 </html>
