@@ -1,130 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible"
-        content="IE=edge">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
-  <title>Vue3 Syntax Testing</title>
-  <!-- <link rel="stylesheet"
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue3 Syntax Testing</title>
+    <!-- <link rel="stylesheet"
         href="./css/reset.css"> -->
-  <!-- <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> -->
-</head>
+    <!-- <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> -->
+  </head>
 
-<body>
-  <div id="app"
-       class="application">
-    <section class="composition_section">
-      <h2>
-        Composition API
-      </h2>
-      <h3>
-        {{ message }}
-      </h3>
-      <p ref="msg"></p>
-      <button type="button"
-              @click="changeMsg">
-        Click to toggle msg.
-      </button>
-    </section>
-    <section class="option_section">
-      <h2>Option API</h2>
-      <p ref="optionRef"></p>
-      <button type="button"
-              @click="toggleOptionRef">
-        Click to call optionRef.
-      </button>
-    </section>
-  </div>
-</body>
+  <body>
+    <div id="app" class="application">
+      <section class="composition_section">
+        <h2>Composition API</h2>
+        <h3>{{ message }}</h3>
+        <p ref="msg"></p>
+        <button type="button" @click="changeMsg">Click to toggle msg.</button>
+      </section>
+      <section class="option_section">
+        <h2>Option API</h2>
+        <p ref="optionRef"></p>
+        <button type="button" @click="toggleOptionRef">Click to call optionRef.</button>
 
-<script type="module">
-  import { createApp, ref } from './js/vue@3.3.4.esm-browser.js';
-  //console.log('createApp:', createApp);
-  //console.log('ref:', ref);
-  // 掛載到實例上
-  createApp({
-    setup() {
-      const message = ref('Hello Vue!');
-      const msg = ref(null);
-      const changeMsg = () => {
-        // console.log('registered.');
-        console.log('msg:', msg, 'typeof msg:', typeof msg);
-        console.log('msg value:', msg.value);
+        <h4>雙向綁定: v-model</h4>
+        <input
+          type="text"
+          v-model="twoWayBinding"
+          name="twoWayBindingInput"
+          id="twoWayBindingInput"
+          class="bindingInput"
+          placeholder="Please Enter Your Name..."
+        />
+        <div class="bindingDisplay">{{ twoWayBinding }}</div>
+      </section>
+    </div>
+  </body>
 
-        // setting the style of DOM
-        // msg.value.style.backgroundColor = '#96514d';
-        // msg.value.style.color = '#ffffff';
+  <script type="module">
+    import { createApp, ref } from './js/vue@3.3.4.esm-browser.js';
+    //console.log('createApp:', createApp);
+    //console.log('ref:', ref);
+    // 掛載到實例上
+    createApp({
+      setup() {
+        const message = ref('Hello Vue!');
+        const msg = ref(null);
+        const changeMsg = () => {
+          // console.log('registered.');
+          console.log('msg:', msg, 'typeof msg:', typeof msg);
+          console.log('msg value:', msg.value);
 
-        if (!msg.value.textContent) {
-          msg.value.textContent = `Hello Composition's Ref.`
-        } else {
-          msg.value.textContent = ``;
-        }
-      }
+          // setting the style of DOM
+          // msg.value.style.backgroundColor = '#96514d';
+          // msg.value.style.color = '#ffffff';
 
-      // function changeMsg() {
-      //   console.log('registered.');
-      // }
-      return {
-        message,
-        msg,
-        changeMsg
-      }
-    },
+          if (!msg.value.textContent) {
+            msg.value.textContent = `Hello Composition's Ref.`;
+          } else {
+            msg.value.textContent = ``;
+          }
+        };
 
-    // Option API
-    data() {
-      return {
-        msgOptionApi: 'Hello Option API!'
-      }
-    },
-    methods: {
-      toggleOptionRef() {
-        //console.log('click event triggered in option API');
-        const vm = this;
-        console.log('vm.$refs:', vm.$refs);
-        console.log('vm.$refs.optionRef:', vm.$refs.optionRef);
-        if (!vm.$refs.optionRef.textContent) {
-          vm.$refs.optionRef.textContent = `Hello Option's Ref.`;
-        } else {
-          vm.$refs.optionRef.textContent = ``;
-        }
-      }
+        // function changeMsg() {
+        //   console.log('registered.');
+        // }
+        return {
+          message,
+          msg,
+          changeMsg,
+        };
+      },
+
+      // Option API
+      data() {
+        return {
+          msgOptionApi: 'Hello Option API!',
+          twoWayBinding: 'Eugene',
+        };
+      },
+      methods: {
+        toggleOptionRef() {
+          //console.log('click event triggered in option API');
+          const vm = this;
+          console.log('vm.$refs:', vm.$refs);
+          console.log('vm.$refs.optionRef:', vm.$refs.optionRef);
+          if (!vm.$refs.optionRef.textContent) {
+            vm.$refs.optionRef.textContent = `Hello Option's Ref.`;
+          } else {
+            vm.$refs.optionRef.textContent = ``;
+          }
+        },
+      },
+    }).mount('#app');
+  </script>
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      font-family: Arial, Helvetica, sans-serif;
+      box-sizing: border-box;
     }
-  }).mount('#app');
-</script>
 
-<style>
-  *,
-  *::before,
-  *::after {
-    font-family: Arial, Helvetica, sans-serif;
-    box-sizing: border-box;
-  }
+    .composition_section,
+    .option_section {
+      background-color: #007b43;
+      border: 2px solid #e6e6e6;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
 
-  .composition_section,
-  .option_section {
-    background-color: #007b43;
-    border: 2px solid #e6e6e6;
-    padding: 1rem;
-    margin-bottom: 1rem;
-  }
+    .composition_section h2 {
+      color: #eb6101;
+    }
 
-  .composition_section h2 {
-    color: #eb6101;
-  }
+    .option_section h2 {
+      color: #e6b422;
+    }
 
-  .option_section h2 {
-    color: #e6b422;
-  }
-
-  /* .application {
+    /* .application {
     min-height: 100vh;
     background-color: azure;
   } */
-</style>
 
+    .bindingDisplay {
+      color: #e6b422;
+      font-size: 1.5rem;
+    }
+
+    .bindingInput {
+      display: block;
+      margin: 0.5rem 0;
+      /* padding: 0.5rem; */
+      border-radius: 0.25rem;
+      border: none;
+    }
+  </style>
 </html>
