@@ -7,6 +7,12 @@
         content="IE=edge">
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0">
+  <!-- script-src unsafe-inline 是 Live Server 測試用，正式機設定改為 nonce -->
+  <!-- script-src unsafe-eval 是給 vue 在 html 中的語法使用，如 @click="methodName", {{ reactiveData }} 等 -->
+  <!-- img-src data: 是給 SVG data 畫圖用 -->
+  <meta http-equiv="Content-Security-Policy"
+        content="script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; object-src 'none';" />
+
   <title>Vue3 Syntax Testing</title>
   <!-- <link rel="stylesheet"
         href="./css/reset.css"> -->
