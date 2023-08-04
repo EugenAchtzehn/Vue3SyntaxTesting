@@ -2,11 +2,11 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible"
-        content="IE=edge">
+        content="IE=edge" />
   <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+        content="width=device-width, initial-scale=1.0" />
   <!-- script-src unsafe-inline 是 Live Server 測試用，正式機設定改為 nonce -->
   <!-- script-src unsafe-eval 是給 vue 在 html 中的語法使用，如 @click="methodName", {{ reactiveData }} 等 -->
   <!-- img-src data: 是給 SVG data 畫圖用 -->
@@ -23,25 +23,26 @@
   <div id="app"
        class="application">
     <section class="composition_section">
-      <h2>
-        Composition API
-      </h2>
-      <h3>
-        {{ message }}
-      </h3>
+      <h2>Composition API</h2>
+      <h3>{{ message }}</h3>
       <p ref="msg"></p>
       <button type="button"
-              @click="changeMsg">
-        Click to toggle msg.
-      </button>
+              @click="changeMsg">Click to toggle msg.</button>
     </section>
     <section class="option_section">
       <h2>Option API</h2>
       <p ref="optionRef"></p>
       <button type="button"
-              @click="toggleOptionRef">
-        Click to call optionRef.
-      </button>
+              @click="toggleOptionRef">Click to call optionRef.</button>
+
+      <h4>雙向綁定: v-model</h4>
+      <input type="text"
+             v-model="twoWayBinding"
+             name="twoWayBindingInput"
+             id="twoWayBindingInput"
+             class="bindingInput"
+             placeholder="Please Enter Your Name..." />
+      <div class="bindingDisplay">{{ twoWayBinding }}</div>
     </section>
   </div>
 </body>
@@ -65,11 +66,11 @@
         // msg.value.style.color = '#ffffff';
 
         if (!msg.value.textContent) {
-          msg.value.textContent = `Hello Composition's Ref.`
+          msg.value.textContent = `Hello Composition's Ref.`;
         } else {
           msg.value.textContent = ``;
         }
-      }
+      };
 
       // function changeMsg() {
       //   console.log('registered.');
@@ -77,15 +78,16 @@
       return {
         message,
         msg,
-        changeMsg
-      }
+        changeMsg,
+      };
     },
 
     // Option API
     data() {
       return {
-        msgOptionApi: 'Hello Option API!'
-      }
+        msgOptionApi: 'Hello Option API!',
+        twoWayBinding: 'Eugene',
+      };
     },
     methods: {
       toggleOptionRef() {
@@ -98,8 +100,8 @@
         } else {
           vm.$refs.optionRef.textContent = ``;
         }
-      }
-    }
+      },
+    },
   }).mount('#app');
 </script>
 
@@ -131,6 +133,19 @@
     min-height: 100vh;
     background-color: azure;
   } */
+
+  .bindingDisplay {
+    color: #e6b422;
+    font-size: 1.5rem;
+  }
+
+  .bindingInput {
+    display: block;
+    margin: 0.5rem 0;
+    /* padding: 0.5rem; */
+    border-radius: 0.25rem;
+    border: none;
+  }
 </style>
 
 </html>
